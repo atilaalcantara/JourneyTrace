@@ -1,11 +1,15 @@
 import * as maplibregl from 'maplibre-gl';
 import type { Map } from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import type { Journey } from '../core/journey/types';
 import { routeGeometry } from './route-layer';
 import { developmentStyle } from './map-style';
 import { waitForFrameReady } from './readiness';
 import type { CameraState } from './camera';
 import { journeyBounds } from './bounds';
+
+// Vite must emit MapLibre's module worker as a self-contained production asset.
+maplibregl.setWorkerUrl(workerUrl);
 
 const reveal = (progress: number) => ['step', ['line-progress'], '#2563eb', Math.max(0, Math.min(1, progress)), 'rgba(37,99,235,0)'] as unknown as maplibregl.ExpressionSpecification;
 
