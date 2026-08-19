@@ -1,0 +1,15 @@
+services:
+  journeytrace:
+    image: ${JOURNEYTRACE_IMAGE:?Set JOURNEYTRACE_IMAGE to the image tag to deploy}
+    container_name: journeytrace
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      career-vault-net:
+        aliases:
+          - journeytrace
+
+networks:
+  career-vault-net:
+    external: true
