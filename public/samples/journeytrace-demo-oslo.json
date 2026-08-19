@@ -1,0 +1,8 @@
+[
+  { "time": "2026-07-18T09:00:00+02:00", "latitudeE7": 599076000, "longitudeE7": 107531000, "note": "Oslo Opera House" },
+  { "time": "2026-07-18T09:09:00+02:00", "latitudeE7": 599076000, "longitudeE7": 107365000, "note": "Akershus Fortress" },
+  { "time": "2026-07-18T09:18:00+02:00", "latitudeE7": 599105000, "longitudeE7": 107274000, "note": "Aker Brygge" },
+  { "time": "2026-07-18T09:27:00+02:00", "latitudeE7": 599115000, "longitudeE7": 107335000, "note": "Oslo City Hall" },
+  { "time": "2026-07-18T09:36:00+02:00", "latitudeE7": 599159000, "longitudeE7": 107276000, "note": "Royal Palace" },
+  { "time": "2026-07-18T09:45:00+02:00", "latitudeE7": 599270000, "longitudeE7": 107005000, "note": "Vigeland Park" }
+]

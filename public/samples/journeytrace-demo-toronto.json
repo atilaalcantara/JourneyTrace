@@ -1,0 +1,8 @@
+[
+  { "time": "2026-07-18T09:00:00-04:00", "latitudeE7": 436426000, "longitudeE7": -793871000, "note": "CN Tower" },
+  { "time": "2026-07-18T09:08:00-04:00", "latitudeE7": 436424000, "longitudeE7": -793860000, "note": "Ripley's Aquarium of Canada" },
+  { "time": "2026-07-18T09:16:00-04:00", "latitudeE7": 436410000, "longitudeE7": -793855000, "note": "Roundhouse Park" },
+  { "time": "2026-07-18T09:24:00-04:00", "latitudeE7": 436387000, "longitudeE7": -793819000, "note": "Harbourfront Centre" },
+  { "time": "2026-07-18T09:32:00-04:00", "latitudeE7": 436503000, "longitudeE7": -793714000, "note": "St. Lawrence Market" },
+  { "time": "2026-07-18T09:40:00-04:00", "latitudeE7": 436503000, "longitudeE7": -793596000, "note": "Distillery District" }
+]
