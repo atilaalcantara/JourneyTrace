@@ -69,26 +69,37 @@ jobs:
     permissions:
       contents: read
     env:
-      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_CONFIG: ${{ secrets.DEPLOY_CONFIG }}
       DEPLOY_PATH: /home/ubuntu/apps/journeytrace
       IMAGE: ${{ needs.publish.outputs.image }}
     steps:
       - uses: actions/checkout@v4
       - name: Configure SSH
         run: |
+          config_file="$RUNNER_TEMP/deploy-config.json"
+          printf '%s' "$DEPLOY_CONFIG" > "$config_file"
+          deploy_host="$(jq -er '.host' "$config_file")"
+          deploy_user="$(jq -er '.user' "$config_file")"
           install -m 700 -d ~/.ssh
-          printf '%s' "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          jq -er '.ssh_private_key' "$config_file" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          jq -er '.known_hosts' "$config_file" > ~/.ssh/known_hosts
+          jq -er '.ghcr_pull_token' "$config_file" > "$RUNNER_TEMP/ghcr-pull-token"
+          chmod 600 "$RUNNER_TEMP/ghcr-pull-token"
+          rm -f "$config_file"
+          {
+            echo "DEPLOY_HOST=$deploy_host"
+            echo "DEPLOY_USER=$deploy_user"
+          } >> "$GITHUB_ENV"
       - name: Install deployment files
         run: |
           ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$DEPLOY_PATH'"
           scp deploy/docker-compose.prod.yml deploy/deploy.sh "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
       - name: Authenticate server to GitHub Container Registry
         run: |
-          printf '%s' "${{ secrets.GHCR_PULL_TOKEN }}" | \
+          cat "$RUNNER_TEMP/ghcr-pull-token" | \
             ssh "$DEPLOY_USER@$DEPLOY_HOST" "docker login ghcr.io --username '${{ github.repository_owner }}' --password-stdin"
+          rm -f "$RUNNER_TEMP/ghcr-pull-token"
       - name: Update JourneyTrace
         run: |
           ssh "$DEPLOY_USER@$DEPLOY_HOST" \
