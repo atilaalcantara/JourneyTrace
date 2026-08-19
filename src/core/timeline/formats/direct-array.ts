@@ -1,0 +1,3 @@
+import { parseCoordinate } from '../coordinates'; import type { TimelinePoint } from '../types';
+const time=(v:unknown)=>typeof v==='number'?v:typeof v==='string'?Date.parse(v):NaN;
+export function parseDirectArray(rows:unknown[]):TimelinePoint[]{return rows.flatMap(row=>{if(!row||typeof row!=='object')return[];const r=row as Record<string,unknown>, path=Array.isArray(r.timelinePath)?r.timelinePath:[];const entries=[r,...path];return entries.flatMap(value=>{const e=value as Record<string,unknown>, c=parseCoordinate(e.point??e.latLng??e),t=time(e.time??e.timestamp??e.startTime??r.startTime);return c&&Number.isFinite(t)?[{...c,timestamp:t}]:[]})})}

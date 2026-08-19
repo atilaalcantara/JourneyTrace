@@ -1,0 +1,31 @@
+{
+  "name": "journeytrace",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "benchmark": "vitest bench src/core/journey/benchmark.bench.ts",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "maplibre-gl": "^6.4.1",
+    "mediabunny": "^1.55.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "jsdom": "latest",
+    "vitest": "latest"
+  }
+}

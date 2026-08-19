@@ -1,0 +1,2 @@
+import { describe, expect, it } from 'vitest'; import { parseTimeline, TimelineError } from './parser';
+describe('Timeline parser', () => { it('reads direct E7 coordinates', () => { const t=parseTimeline([{time:'2025-01-01T00:00:00Z',latitudeE7:515000000,longitudeE7:-1200000},{time:'2025-01-01T01:00:00Z',latitudeE7:516000000,longitudeE7:-1100000}]); expect(t.points).toHaveLength(2); expect(t.statistics.totalDistanceMeters).toBeGreaterThan(10000); }); it('identifies Takeout',()=>expect(()=>parseTimeline({locations:[]})).toThrow(TimelineError)); });
