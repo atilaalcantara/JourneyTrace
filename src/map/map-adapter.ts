@@ -16,6 +16,7 @@ export class JourneyMap {
 
   constructor(node: HTMLElement, journey: Journey, pixelRatio = Math.min(devicePixelRatio, 2)) {
     this.map = new maplibregl.Map({ container: node, style: developmentStyle, center: [journey.points[0].lng, journey.points[0].lat], zoom: 10, pixelRatio, canvasContextAttributes: { preserveDrawingBuffer: true } });
+    this.map.on('error', event => console.error('[JourneyTrace map]', event.error));
     this.loaded = new Promise((resolve) => this.map.once('load', () => {
       const route = routeGeometry(journey);
       this.map.addSource('journey', { type: 'geojson', data: route, lineMetrics: true });
