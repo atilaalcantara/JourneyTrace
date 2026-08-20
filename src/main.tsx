@@ -66,6 +66,7 @@ function Segment<T extends string>({
 function SourceCredit() {
   return (
     <>
+      <a href="/how-to-export-google-timeline/">Google Timeline guides</a> ·{" "}
       JourneyTrace is inspired by{" "}
       <a
         href="https://github.com/mahlernim/google-timeline-visualizer"
