@@ -22,8 +22,8 @@ jobs:
     name: Test and build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -42,7 +42,7 @@ jobs:
     outputs:
       image: ${{ steps.image.outputs.value }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -57,6 +57,8 @@ jobs:
           context: .
           push: true
           platforms: linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             ${{ steps.image.outputs.value }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
@@ -76,7 +78,7 @@ jobs:
       DEPLOY_PATH: /home/ubuntu/apps/journeytrace
       IMAGE: ${{ needs.publish.outputs.image }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Configure SSH
         run: |
           config_file="$RUNNER_TEMP/deploy-config.json"

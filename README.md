@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/samples/JourneyTracePostImage1GPT.png" alt="JourneyTrace on desktop and mobile" width="680" />
+  <img src="public/samples/journeytrace-social.jpg" alt="JourneyTrace on desktop and mobile" width="680" />
 </p>
 
 <h1 align="center">JourneyTrace</h1>
@@ -22,7 +22,7 @@
 ## See it in motion
 
 <p align="center">
-  <img src="public/samples/exampleVideo.gif" alt="Example JourneyTrace route animation" width="720" />
+  <img src="docs/assets/exampleVideo.gif" alt="Example JourneyTrace route animation" width="720" />
 </p>
 
 ## Use it
