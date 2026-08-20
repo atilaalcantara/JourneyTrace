@@ -1,0 +1,135 @@
+.example-journey {
+  margin-top: 8px;
+}
+
+footer a {
+  color: var(--accent);
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 32%);
+  outline-offset: 3px;
+}
+
+.link {
+  border-radius: 8px;
+  transition: background-color 160ms ease, color 160ms ease,
+    transform 160ms ease;
+}
+
+.link:hover {
+  background: #eff6ff;
+  color: var(--accent-hover);
+}
+
+.link:active {
+  transform: translateY(1px);
+}
+
+.primary-actions .secondary {
+  border: 1px solid #d4d4d8;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgb(24 24 27 / 6%);
+  transition: background-color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease, transform 160ms ease;
+}
+
+.primary-actions .secondary:hover {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  box-shadow: 0 4px 10px rgb(37 99 235 / 12%);
+  transform: translateY(-1px);
+}
+
+.primary-actions .secondary:active {
+  background: #dbeafe;
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.example-copy {
+  max-width: 42ch;
+  margin: 10px auto 0 !important;
+  font-size: 14px !important;
+}
+
+.example-journey + .example-copy + .dropzone {
+  margin-top: 26px;
+}
+
+@keyframes landing-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing > header,
+.landing .privacy,
+.landing .hero h1,
+.landing .hero > p,
+.landing .example-journey,
+.landing .example-copy,
+.landing .dropzone,
+.landing .device,
+.landing .link {
+  animation: landing-reveal 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing .privacy { animation-delay: 40ms; }
+.landing .hero h1 { animation-delay: 90ms; }
+.landing .hero > p { animation-delay: 140ms; }
+.landing .example-journey { animation-delay: 190ms; }
+.landing .example-copy { animation-delay: 230ms; }
+.landing .dropzone { animation-delay: 280ms; }
+.landing .device { animation-delay: 330ms; }
+.landing .link { animation-delay: 360ms; }
+
+/* Keep both primary paths visible above the fold on laptop/desktop screens. */
+@media (min-width: 640px) {
+  .landing > header {
+    height: 64px;
+  }
+
+  .landing .hero {
+    margin: 0 auto;
+    padding: 28px 24px 36px;
+  }
+
+  .landing .hero h1 {
+    margin: 14px 0 10px;
+  }
+
+  .landing .hero > p {
+    margin: 0;
+  }
+
+  .landing .dropzone {
+    margin-bottom: 12px;
+    padding: 28px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing > header,
+  .landing .privacy,
+  .landing .hero h1,
+  .landing .hero > p,
+  .landing .example-journey,
+  .landing .example-copy,
+  .landing .dropzone,
+  .landing .device,
+  .landing .link {
+    animation: none;
+  }
+}

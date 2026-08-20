@@ -3,8 +3,10 @@ import { createRoot } from "react-dom/client";
 import {
   FileUp,
   HelpCircle,
+  Map,
   MapPin,
   Menu,
+  Pause,
   Play,
   Settings2,
   ShieldCheck,
@@ -24,6 +26,7 @@ import {
   type ExportQuality,
 } from "./features/video-export/config";
 import "./styles.css";
+import "./example-journey.css";
 const VideoPocPage = lazy(() => import("./features/video-poc/VideoPocPage"));
 const fmt = (n: number) =>
   new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(n);
@@ -58,6 +61,21 @@ function Segment<T extends string>({
         ))}
       </div>
     </fieldset>
+  );
+}
+function SourceCredit() {
+  return (
+    <>
+      JourneyTrace is inspired by{" "}
+      <a
+        href="https://github.com/mahlernim/google-timeline-visualizer"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Timeline Visualizer by mahlernim
+      </a>{" "}
+      · MIT licensed.
+    </>
   );
 }
 function App() {
@@ -125,6 +143,25 @@ function App() {
       worker.postMessage({ type: "process", id, file });
     } catch {
       fail();
+    }
+  };
+  const loadExample = async () => {
+    setError("");
+    setImporting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.BASE_URL}samples/journeytrace-demo-oslo.json`,
+      );
+      if (!response.ok) throw new Error("Example file unavailable");
+      const contents = await response.blob();
+      read(
+        new File([contents], "journeytrace-example-oslo.json", {
+          type: "application/json",
+        }),
+      );
+    } catch {
+      setImporting(false);
+      setError("Could not load the example journey. Please try again.");
     }
   };
   const startExport = async () => {
@@ -263,9 +300,10 @@ function App() {
           <button
             className="secondary"
             disabled={disabled}
+            aria-pressed={playing}
             onClick={() => setPlaying(!playing)}
           >
-            <Play size={18} />
+            {playing ? <Pause size={18} /> : <Play size={18} />}
             {playing ? "Pause" : "Preview"}
           </button>
           <button disabled={disabled} onClick={startExport}>
@@ -376,8 +414,7 @@ function App() {
         )}
         {exportError && <p className="error journey-error">{exportError}</p>}
         <footer>
-          JourneyTrace is inspired by and based on the open-source Timeline
-          Visualizer project by mahlernim.
+          <SourceCredit />
         </footer>
         {guide && (
           <dialog open>
@@ -420,6 +457,18 @@ function App() {
           in motion.
         </h1>
         <p>Turn your Google Timeline into a beautiful animated travel map.</p>
+        <button
+          type="button"
+          className="example-journey"
+          disabled={importing}
+          onClick={loadExample}
+        >
+          <Map size={18} /> Try an example journey
+        </button>
+        <p className="example-copy">
+          Explore a short, fictional route through Oslo before importing your
+          own Timeline.
+        </p>
         <div
           className={"dropzone " + (drag ? "drag" : "")}
           onDragOver={(e) => {
@@ -464,8 +513,7 @@ function App() {
         </button>
       </section>
       <footer>
-        JourneyTrace is inspired by and based on the open-source Timeline
-        Visualizer project by mahlernim.
+        <SourceCredit />
       </footer>
       {guide && (
         <dialog open>
